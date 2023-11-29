@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск по названию</title>
+</head>
+<body>
+<form th:action="@{/books/search}" th:method="GET">
+
+    <label for="query">Введите поисковой запрос: </label>
+    <input type="text"
+           name="query_string"
+           id="query">
+    <br/>
+    <br/>
+    <input type="submit" value="Искать!">
+    <hr/>
+    <div th:if="${foundBooks}">
+        <p th:if="${foundBooks.size() == 0}">Книг не найдено</p>
+
+        <div class="foundBooks" th:if="${foundBooks}">
+            <div th:each="book : ${foundBooks}" style="background-color: aquamarine; width: 375px">
+                <p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYearOfCreated()}">BOOK INFO</p>
+                <span th:if="${book.getHolder() == null}">Книга свободна</span>
+                <span th:if="${book.getHolder() != null}">
+                Книга у <b th:text="${book.getHolder().getFullName()}">Книга у N N</b>
+            </span>
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

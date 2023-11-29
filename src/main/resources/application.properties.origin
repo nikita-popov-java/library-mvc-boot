@@ -1,0 +1,12 @@
+# data source
+spring.datasource.driver-class-name=
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+
+# hibernate
+spring.jpa.properties.hibernate.dialect=
+spring.jpa.properties.show_sql=true
+
+#hidden inputs filter
+spring.mvc.hiddenmethod.filter.enabled=true
