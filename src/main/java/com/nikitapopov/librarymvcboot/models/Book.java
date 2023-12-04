@@ -46,6 +46,8 @@ public class Book {
     private Person holder;
 
     @Transient
+    @Getter
+    @Setter
     private boolean isOverdue;
 
     public boolean isFree() {

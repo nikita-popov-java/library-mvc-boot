@@ -34,7 +34,7 @@ public class BooksController {
 
         List<Book> resultBooksList = (page == null && booksPerPage == null && sortByYear == null)
                 ? booksService.findAll()
-                : booksService.findAllPageable(page, booksPerPage, sortByYear);
+                : booksService.findAllPageable(page, booksPerPage, (sortByYear != null) && sortByYear);
 
         model.addAttribute("books", resultBooksList);
 

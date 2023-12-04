@@ -30,7 +30,7 @@
     <ul style="padding: 0">
         <li th:each="book: ${books}" style="list-style: none">
             <a th:href="@{/books/{id} (id=${book.getId()})}"
-               th:style="${book.getOverdue() ? 'color: red;font-weight: bold;' : 'color: black;'}"
+               th:style="${book.isOverdue() ? 'color: red;font-weight: bold;' : 'color: black;'}"
                th:text="${book.getName()} + ', ' + ${book.getAuthor()} + ', ' + ${book.getYearOfCreated()}">
                 BOOK LINK
             </a>
