@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Auth pls</title>
+</head>
+<body>
+<form action="/auth/login-process" method="post">
+
+    <div style="color: red; font-size: 20px;" th:if="${param.get('error')}">Неверно введён логин и\или пароль!</div>
+    <div style="color: green; font-size: 20px;" th:if="${param.get('success')}">Регистрация прошла успешно!</div>
+
+    <label for="username">Login: </label>
+    <input type="text" name="username" id="username">
+
+    <br/>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password">
+
+    <br/>
+    <br/>
+
+    <input type="submit" value="Войти">
+    <a th:href="@{/auth/registration}">
+        <button type="button">Зарегистрироваться</button>
+    </a>
+</form>
+</body>
+</html>

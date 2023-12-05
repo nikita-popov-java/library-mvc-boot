@@ -53,8 +53,8 @@ public class PeopleService {
     }
 
     @Transactional
-    public void save(Person person) {
-        peopleRepository.save(person);
+    public Person save(Person person) {
+        return peopleRepository.save(person);
     }
 
     @Transactional

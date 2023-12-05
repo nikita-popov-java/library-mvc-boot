@@ -14,6 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @ToString(exclude = {"holder"})
+@EqualsAndHashCode(exclude = {"receiptDate", "holder", "isOverdue"})
 public class Book {
 
     @Id

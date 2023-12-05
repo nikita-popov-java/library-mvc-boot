@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 
 @Controller
 @RequestMapping("/people")
@@ -64,9 +65,9 @@ public class PeopleController {
         if (result.hasErrors())
             return "people/new";
 
-        peopleService.save(person);
+        Person savedPerson = peopleService.save(person);
 
-        return "redirect:/people";
+        return "redirect:/people/" + savedPerson.getId();
     }
 
     @PatchMapping("/{id}")

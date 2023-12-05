@@ -23,5 +23,5 @@ public class User {
 
     @Column(name = "password")
     @NonNull
-    private int passwordHash;
+    private String password;
 }

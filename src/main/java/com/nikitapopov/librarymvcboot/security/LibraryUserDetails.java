@@ -23,7 +23,7 @@ public class LibraryUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return String.valueOf(this.user.getPasswordHash());
+        return this.user.getPassword();
     }
 
     @Override
