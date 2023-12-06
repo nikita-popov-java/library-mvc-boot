@@ -1,5 +1,6 @@
 package com.nikitapopov.librarymvcboot.models;
 
+import com.nikitapopov.librarymvcboot.models.enums.Authority;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,4 +25,9 @@ public class User {
     @Column(name = "password")
     @NonNull
     private String password;
+
+    @Column(name = "role")
+    @Enumerated(value = EnumType.STRING)
+    @NonNull
+    private Authority authority;
 }

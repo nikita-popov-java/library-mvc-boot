@@ -3,9 +3,11 @@ package com.nikitapopov.librarymvcboot.security;
 import com.nikitapopov.librarymvcboot.models.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class LibraryUserDetails implements UserDetails {
 
@@ -18,7 +20,7 @@ public class LibraryUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singletonList(new SimpleGrantedAuthority(this.user.getAuthority().toString()));
     }
 
     @Override

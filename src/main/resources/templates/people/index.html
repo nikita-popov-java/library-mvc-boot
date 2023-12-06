@@ -17,5 +17,10 @@
 </ul>
 <hr/>
 <a th:href="@{/people/new}">Добавить читателя</a>
+<br/>
+<br/>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Выйти из профиля</button>
+</form>
 </body>
 </html>

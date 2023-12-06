@@ -1,16 +1,14 @@
 package com.nikitapopov.librarymvcboot.configurations;
 
+import com.nikitapopov.librarymvcboot.models.enums.Authority;
 import com.nikitapopov.librarymvcboot.services.LibraryUserDetailsService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -26,25 +24,28 @@ public class SecurityConfiguration {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(libraryUserDetailsService).passwordEncoder(passwordEncoder());
+        builder.userDetailsService(libraryUserDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity security) throws Exception {
-        security.csrf(CsrfConfigurer::disable)
-                .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/auth/login","/auth/registration", "/error", "/books").permitAll()
-                                .anyRequest().authenticated()
+        security.authorizeHttpRequests(auth ->
+                        auth.requestMatchers("/people").hasAuthority(Authority.ROLE_ADMIN.toString())
+                                .requestMatchers("/auth/login","/auth/registration", "/error").permitAll()
+                                .anyRequest().hasAnyAuthority(Authority.ROLE_USER.toString(), Authority.ROLE_ADMIN.toString())
                 ).formLogin(form ->
                         form.loginPage("/auth/login")
                                 .loginProcessingUrl("/auth/login-process")
-                                .defaultSuccessUrl("/people", true)
+                                .defaultSuccessUrl("/books", true)
                                 .failureUrl("/auth/login?error")
-                );
+                ).logout(auth ->
+                        auth.logoutUrl("/logout")
+                                .logoutSuccessUrl("/auth/login?logout"));
 
         return security.build();
     }

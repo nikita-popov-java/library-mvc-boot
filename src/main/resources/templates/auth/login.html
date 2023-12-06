@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Auth pls</title>
 </head>
 <body>
 <form action="/auth/login-process" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
     <div style="color: red; font-size: 20px;" th:if="${param.get('error')}">Неверно введён логин и\или пароль!</div>
     <div style="color: green; font-size: 20px;" th:if="${param.get('success')}">Регистрация прошла успешно!</div>
+    <div style="color: #004de3; font-size: 20px;" th:if="${param.get('logout')}">Вы вышли из аккаунта</div>
 
     <label for="username">Login: </label>
     <input type="text" name="username" id="username">
